@@ -1,9 +1,14 @@
 import React from "react";
-
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
 import App from "./shared/App";
 
 const root = createRoot(document.getElementById("root"));
 
-root.render(<App type="CSR" />);
+root.render(
+  <BrowserRouter>
+    <App type="CSR" />
+  </BrowserRouter>
+);
 

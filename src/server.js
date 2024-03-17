@@ -1,14 +1,21 @@
 const express = require('express');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const { default: App } = require('./shared/App');
+const { StaticRouter } = require('react-router-dom/server');
+
+const App = require('./shared/App').default;
 
 const server = express();
 
 server.use(express.static('dist'));
 
 server.get('*', (req, res) => {
-  const appString = ReactDOMServer.renderToString(<App type="SSR" />);
+  const context = {};
+  const appString = ReactDOMServer.renderToString(
+    <StaticRouter location={req.url} context={context}>
+      <App type="SSR" />
+    </StaticRouter>
+  );
   res.send(`
     <!DOCTYPE html>
     <html lang="en">
